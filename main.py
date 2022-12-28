@@ -67,7 +67,7 @@ def initialization_of_weight_matrix(count_of_network_layers, network_layers):
 
 
 def get_fibonacci_values(number_of_generated_numbers):
-    list_generated_fibonacci_values = list()
+    list_generated_fibonacci_values = []
     for index in range(number_of_generated_numbers + 1):
         if index == 0:
             list_generated_fibonacci_values.append(1)
@@ -77,6 +77,25 @@ def get_fibonacci_values(number_of_generated_numbers):
             sum_of_pred_values = list_generated_fibonacci_values[index-1] + list_generated_fibonacci_values[index-2]
             list_generated_fibonacci_values.append(sum_of_pred_values)
     return list_generated_fibonacci_values
+
+
+def get_factorial_values(number_of_generated_numbers):
+    list_generated_factorial_values = []
+    for index in range(number_of_generated_numbers + 1):
+        if index == 0 or index == 1:
+            list_generated_factorial_values.append(1)
+        else:
+            list_generated_factorial_values.append(index * list_generated_factorial_values[index - 1])
+    return list_generated_factorial_values
+
+
+def get_period_values(number_of_generated_numbers):
+    list_generated_period_values = []
+    period_data_values_pattern = [1, 0, -1, 0]
+    for index in range(number_of_generated_numbers + 1):
+        generate_period_value = period_data_values_pattern[index % len(period_data_values_pattern)]
+        list_generated_period_values.append(generate_period_value)
+    return list_generated_period_values
 
 
 def direct_error_distribution(network_layers, count_of_network_layers, x, weight):
@@ -173,6 +192,8 @@ if __name__ == "__main__":
     neural_shape = [2, 7, 1]
     number_of_generated_values = 8
     generated_values = get_fibonacci_values(number_of_generated_values)
+    generated_values_period = get_period_values(number_of_generated_values)
+    generated_values_factorial = get_factorial_values(number_of_generated_values)
     dataset_1 = []
     for i in range(len(generated_values)-2):
         dataset = get_data_tuple_for_sample(i, generated_values, neural_shape[0], neural_shape[2])
